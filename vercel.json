@@ -1,4 +1,6 @@
 
+
+
 {
   "version": 2,
   "builds": [
@@ -9,8 +11,18 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "server.js"
+      "src": "/api/send-email",
+      "dest": "server.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/",
+      "dest": "server.js",
+      "methods": ["GET"]
     }
-  ]
+  ],
+  "env": {
+    "EMAIL_USER": "@your-email-user",
+    "EMAIL_PASS": "@your-email-password"
+  }
 }
