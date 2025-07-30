@@ -11,6 +11,11 @@ app.use(cors());
 app.use(express.json());
 
 // POST route
+
+app.get('/', (req, res) => {
+  res.send('API is running.');
+});
+
 app.post('/send-email', async (req, res) => {
   const { name, email, message } = req.body;
 
