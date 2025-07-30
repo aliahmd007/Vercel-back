@@ -1,28 +1,4 @@
-
-
-
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/send-email",
-      "dest": "server.js",
-      "methods": ["POST"]
-    },
-    {
-      "src": "/",
-      "dest": "server.js",
-      "methods": ["GET"]
-    }
-  ],
-  "env": {
-    "EMAIL_USER": "aliahmadgondal007@gmail.com",
-    "EMAIL_PASS": "jwwv bhvk lyci renf"
-  }
+  "version": 2
+
 }
