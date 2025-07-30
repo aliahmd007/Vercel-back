@@ -57,12 +57,22 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: ['https://portfolio-hfwa.vercel.app', 'http://localhost:3000'],
-  methods: ['GET', 'POST'],
+// Enhanced CORS configuration
+const corsOptions = {
+  origin: [
+    'https://portfolio-hfwa.vercel.app', // Your frontend
+    'http://localhost:3000' // For local development
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'], // Include OPTIONS for preflight
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
 
 // Health check endpoint
@@ -71,7 +81,7 @@ app.get('/', (req, res) => {
 });
 
 // Email endpoint
-app.post('/api/send-email', async (req, res) => {
+app.post('/api/send-email', cors(corsOptions), async (req, res) => {
   const { name, email, message } = req.body;
 
   // Input validation
@@ -111,11 +121,6 @@ app.post('/api/send-email', async (req, res) => {
       error: process.env.NODE_ENV === 'development' ? error.message : null
     });
   }
-});
-
-// Handle 404
-app.use((req, res) => {
-  res.status(404).json({ message: 'Endpoint not found' });
 });
 
 const PORT = process.env.PORT || 5000;
